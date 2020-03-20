@@ -1,5 +1,3 @@
-package ÀÌÅÍ·¹ÀÌÅÍÁ¦³×¸¯;
-
 class PersonJK{
 	private String name;
 
@@ -29,9 +27,9 @@ public class Generic_Iterator_AppStart {
 		}
 		
 		MyCollection<PersonJK> jk = new MyCollection<PersonJK>(300);
-		jk.add(new PersonJK("¼®Áø"));
-		jk.add(new PersonJK("À±±â"));
-		jk.add(new PersonJK("ÅÂÇü"));
+		jk.add(new PersonJK("ì„ì§„"));
+		jk.add(new PersonJK("ìœ¤ê¸°"));
+		jk.add(new PersonJK("íƒœí˜•"));
 		
 		Generic_Iterator<PersonJK> itJK = jk.iterator();
 		while(itJK.hasnext()) {
