@@ -1,5 +1,3 @@
-package 이터레이터제네릭;
-
 public class MyIterator <T>  implements Generic_Iterator<T>{
 	
 	private MyCollection<T> collection;
