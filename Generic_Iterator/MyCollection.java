@@ -1,11 +1,9 @@
-package ÀÌÅÍ·¹ÀÌÅÍÁ¦³×¸¯;
-
 public class MyCollection<T> implements Generic_Collection <T>{
-	private T[] base;//Å¸ÀÔÀÌ Á¤ÇØÁöÁö ¾ÊÀ½
+	private T[] base;//íƒ€ì…ì´ ì •í•´ì§€ì§€ ì•ŠìŒ
 	private int count;
 	
 	public MyCollection(int capacity) {
-		base = (T[])(new Object[capacity]);//µû¶ó¼­ ¿©±â¼­ Ä³½ºÆÃ!!!!
+		base = (T[])(new Object[capacity]);//ë”°ë¼ì„œ ì—¬ê¸°ì„œ ìºìŠ¤íŒ…!!!!
 		count = 0;
 	}
 	
