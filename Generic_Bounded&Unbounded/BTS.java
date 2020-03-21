@@ -1,4 +1,3 @@
-package 제네릭;
 class BTS {//할아버지
 	//data 객체
 	public static final String TYPE = "TOTAL";
