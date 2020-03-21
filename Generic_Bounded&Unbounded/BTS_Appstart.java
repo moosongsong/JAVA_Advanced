@@ -1,10 +1,8 @@
-package Á¦³×¸¯;
-
 public class BTS_Appstart {
 	public static void main(String [] args) {
 		Course<RJ> rj = new Course("sksk", 20);
-//		rj.add(new JIN("ekek", "ekek"));//ºÒ°¡....
-		rj.add(new RJ("¾ËÁ¦ÀÌ", "¾Ë±â¿ª", 30));//´ãÀ» ¼ö ÀÖÀ½. ´ã±æ¶§´Â »óÇÑ °ª JINÀ¸·Î ´ã±ä´Ù.
+//		rj.add(new JIN("ekek", "ekek"));//ë¶ˆê°€....
+		rj.add(new RJ("ì•Œì œì´", "ì•Œê¸°ì—­", 30));//ë‹´ì„ ìˆ˜ ìˆìŒ. ë‹´ê¸¸ë•ŒëŠ” ìƒí•œ ê°’ JINìœ¼ë¡œ ë‹´ê¸´ë‹¤.
 		rj.showList();
 	}
 }
