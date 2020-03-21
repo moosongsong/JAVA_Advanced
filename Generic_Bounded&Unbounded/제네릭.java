@@ -1,8 +1,7 @@
-package Á¦³×¸¯;
-interface Flyable<T>{//Á¦³×¸¯ ÀÎÅÍÆäÀÌ½º
+interface Flyable<T>{//ì œë„¤ë¦­ ì¸í„°í˜ì´ìŠ¤
 }
 
-class Person<T>{//Á¦³×¸¯ Å¬·¡½º
+class Person<T>{//ì œë„¤ë¦­ í´ë˜ìŠ¤
 	private T value;
 	public Person(T value) {
 		super();
@@ -18,13 +17,13 @@ class Person<T>{//Á¦³×¸¯ Å¬·¡½º
 	}
 }
 
-class Duck implements Flyable<Integer>{//±¸ÇöÇÒ ¶§(»ó¼Ó) Å¬·¡½º ÁöÁ¤.
+class Duck implements Flyable<Integer>{//êµ¬í˜„í•  ë•Œ(ìƒì†) í´ë˜ìŠ¤ ì§€ì •.
 }
 
-class Student<T extends Number> extends Person<T>{//»óÇÑ°ª ÁöÁ¤.
+class Student<T extends Number> extends Person<T>{//ìƒí•œê°’ ì§€ì •.
 	public Student(T value) {
 		super(value);
-	}//Å¸ÀÔÀ» Å¬·¡½º ÀÌ¸§µÚ¿¡ ¸í½Ã!!!!
+	}//íƒ€ì…ì„ í´ë˜ìŠ¤ ì´ë¦„ë’¤ì— ëª…ì‹œ!!!!
 }
 
 interface Fightable{}
@@ -38,20 +37,20 @@ class BlueBird<T> extends Bird{}
 ///////////////
 
 class Suga{
-	public <T> void show(T obj) {//¹İÈ¯Çü µÚ¿¡ <T>²À ÀÖ¾î¾ßÇØ!!
+	public <T> void show(T obj) {//ë°˜í™˜í˜• ë’¤ì— <T>ê¼­ ìˆì–´ì•¼í•´!!
 	}
 }
 
-public class Á¦³×¸¯ {
-	//»ó¼Ó ¶Ç´Â ±¸ÇöÇÏ´Â ½ÃÁ¡¿¡ ÀÚ·áÇü ÁöÁ¤ °¡´É
+public class ì œë„¤ë¦­ {
+	//ìƒì† ë˜ëŠ” êµ¬í˜„í•˜ëŠ” ì‹œì ì— ìë£Œí˜• ì§€ì • ê°€ëŠ¥
 	public static void main(String [] argv) {
-		//¾ğ¹Ù¿îµğµå Å¸ÀÔ - Á¦ÇÑÀÌ ¾ø´Â Å¸ÀÔ - ¹ÌÁöÁ¤½Ã ¿ÀºêÁ§Æ®Å¸ÀÔÀ¸·Î µé¾î¿Â´Ù.
-		Person<Integer> p =new Person<>(10);//ÀÚ·áÇü new¿¡¼­ »ı·«°¡´É
-		Person<Double>d = new Person(new Double(10));//¿©±ä ÀÌ·¸°Ô Æ÷ÀåÇØ¾ß ÇÑ´Ù.
-		Person<Number> n =new Person(100.0);//valueof·Î Æ÷ÀåµÈ´Ù.
+		//ì–¸ë°”ìš´ë””ë“œ íƒ€ì… - ì œí•œì´ ì—†ëŠ” íƒ€ì… - ë¯¸ì§€ì •ì‹œ ì˜¤ë¸Œì íŠ¸íƒ€ì…ìœ¼ë¡œ ë“¤ì–´ì˜¨ë‹¤.
+		Person<Integer> p =new Person<>(10);//ìë£Œí˜• newì—ì„œ ìƒëµê°€ëŠ¥
+		Person<Double>d = new Person(new Double(10));//ì—¬ê¸´ ì´ë ‡ê²Œ í¬ì¥í•´ì•¼ í•œë‹¤.
+		Person<Number> n =new Person(100.0);//valueofë¡œ í¬ì¥ëœë‹¤.
 		
-		//¹Ù¿îµğµå Å¸ÀÔ
-//		Student<String> s = new Student("meme");//ºÒ°¡ StringÀº Number »ó¼ÓÀ» ÇÏÁö ¾Ê¾Ò´Ù.
-		Student<Float> s = new Student(1.2);//Number·Î »óÇÑ Å¸ÀÔ Á¦ÇÑÀÌ µÇ¾îÀÖ´Ù.
+		//ë°”ìš´ë””ë“œ íƒ€ì…
+//		Student<String> s = new Student("meme");//ë¶ˆê°€ Stringì€ Number ìƒì†ì„ í•˜ì§€ ì•Šì•˜ë‹¤.
+		Student<Float> s = new Student(1.2);//Numberë¡œ ìƒí•œ íƒ€ì… ì œí•œì´ ë˜ì–´ìˆë‹¤.
 	}
 }
