@@ -1,5 +1,4 @@
-class BTS {//할아버지
-	//data 객체
+class BTS {
 	public static final String TYPE = "TOTAL";
 	protected String name;
 
@@ -17,7 +16,7 @@ class BTS {//할아버지
 	}
 }
 
-class Jin extends BTS{//아버지
+class Jin extends BTS{
 	public static final String TYPE = "JIN";
 	protected String nickName;
 	
@@ -41,7 +40,7 @@ class Jin extends BTS{//아버지
 	
 }
 
-final class RJ extends Jin{//아들
+final class RJ extends Jin{
 	public static final String TYPE = "RJ";
 	private int age;
 	
@@ -94,7 +93,7 @@ class Course<T>{
 
 	@SuppressWarnings("unchecked")
 	public Course(String courseName, int capacity) {
-		this.jin = (T[])(new Object[capacity]); //바운디드
+		this.jin = (T[])(new Object[capacity]);
 		this.courseName = courseName;
 		this.count = 0;
 	}
@@ -119,19 +118,19 @@ class Course<T>{
 		return count;
 	}
 	
-	public <K extends Jin>void add(K seok) {
-		if(count<jin.length) {
-			System.out.println(seok.getName());//과연 안전한 방법인가.... 고려 요망
-			jin[count++]=(T)seok; //들어오기는 Jin 타입으로 들어온다.//잠정적으로 Jin타입이어서 getName()도 가능
-			//결국은 여기서 명시적으로 T타입으로 바꾸어야 하고, 결국은 잠정적 오브젝트 타입이다.
+	public void add(T seok) {
+		try {
+			if(count==jin.length) {
+				throw new FullException();
+			}
+			this.jin[count++]=seok; 
+		} catch (CourseException e) {
+			System.out.println(e.getMessage());
+			e.doExcept(this);
+			this.add(seok);
+		}finally {//finally가 있는 경우 재귀호출 사용 금지...최대한.
+			;
 		}
 	}
-	
-//	private <K extends Jin> void show(K obj) {
-//		System.out.println(obj.getName()+", "+obj.getNickName());
-//	}//순수한 클래스의 역할만 수행하도록 하자
-	
-//	public void showList() {
-//	}//외부에서 출력문을 만들어야 한다.
 }
 //moosongsong0321
