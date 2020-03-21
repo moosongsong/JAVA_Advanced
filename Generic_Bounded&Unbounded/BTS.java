@@ -1,9 +1,5 @@
-package Á¦³×¸¯;
-
-import java.util.Iterator;
-
-class BTS {//ÇÒ¾Æ¹öÁö
-	//data °´Ã¼
+class BTS {//í• ì•„ë²„ì§€
+	//data ê°ì²´
 	public static final String TYPE = "TOTAL";
 	protected String name;
 
@@ -16,7 +12,7 @@ class BTS {//ÇÒ¾Æ¹öÁö
 	}
 }
 
-class Jin extends BTS{//¾Æ¹öÁö
+class Jin extends BTS{//ì•„ë²„ì§€
 	public static final String TYPE = "JIN";
 	protected String nickName;
 	
@@ -35,7 +31,7 @@ class Jin extends BTS{//¾Æ¹öÁö
 	
 }
 
-final class RJ extends Jin{//¾Æµé
+final class RJ extends Jin{//ì•„ë“¤
 	public static final String TYPE = "RJ";
 	private int age;
 	
@@ -71,14 +67,14 @@ class RM extends BTS{
 	}
 }
 
-class Course<T extends Jin>{//»óÇÑ Å¸ÀÔÀ» ÁöÁ¤.
+class Course<T extends Jin>{//ìƒí•œ íƒ€ì…ì„ ì§€ì •.
 	private T[] jin;
 	private String courseName;
 	private int count;
 
 	@SuppressWarnings("unchecked")
 	public Course(String courseName, int capacity) {
-		this.jin = (T[])(new Jin[capacity]); //¹Ù¿îµğµå
+		this.jin = (T[])(new Jin[capacity]); //ë°”ìš´ë””ë“œ
 		this.courseName = courseName;
 		this.count = 0;
 	}
@@ -112,17 +108,17 @@ class Course<T extends Jin>{//»óÇÑ Å¸ÀÔÀ» ÁöÁ¤.
 	public void showList() {
 		for (int i = 0; i < count; i++) {
 			T t = jin[i];
-//			if(t instanceof RJ){//¹¹ ÀÌ·±½ÄÀ¸·Î °­Á¦ÀûÀ¸·Î Ãâ·ÂÇÏ°Ô²ûÀº ¼ö´Â ÀÖÁö......
-//			System.out.println(t.getName);}//ÀáÁ¤ÀûÀÎ ¿ÀºêÁ§Æ® Å¸ÀÔ...
-			//»óÇÑ Å¸ÀÔÀ» ÁöÁ¤ÇÔÀ¸·Î½á ÇØ°áÇØº¼ ¼ö ÀÖ´Ù. ±×·¯³ª ¹ØÀ¸·Î ³»·Á°¡ JinÀ¸·Î ÁöÁ¤ÇÏ¸é, RMÀ» ÇÒ ¼ö ¾ø´Ù....
-			//±×¸®°í ¹è¿­À» ¸¸µé¶§ Æã ÅÍÁú°ÅÀÓ.....
+//			if(t instanceof RJ){//ë­ ì´ëŸ°ì‹ìœ¼ë¡œ ê°•ì œì ìœ¼ë¡œ ì¶œë ¥í•˜ê²Œë”ì€ ìˆ˜ëŠ” ìˆì§€......
+//			System.out.println(t.getName);}//ì ì •ì ì¸ ì˜¤ë¸Œì íŠ¸ íƒ€ì…...
+			//ìƒí•œ íƒ€ì…ì„ ì§€ì •í•¨ìœ¼ë¡œì¨ í•´ê²°í•´ë³¼ ìˆ˜ ìˆë‹¤. ê·¸ëŸ¬ë‚˜ ë°‘ìœ¼ë¡œ ë‚´ë ¤ê°€ Jinìœ¼ë¡œ ì§€ì •í•˜ë©´, RMì„ í•  ìˆ˜ ì—†ë‹¤....
+			//ê·¸ë¦¬ê³  ë°°ì—´ì„ ë§Œë“¤ë•Œ í‘ í„°ì§ˆê±°ì„.....
 			System.out.println(t.getName()+","+t.getNickName());
 		}
 	}
 
 //	public void show() {
-//		System.out.println(jin.getName());//¾ğ¹Ù¿îµğµå ÀÏ¶§ ½ÇÇà ºÒ°¡ //¾ğ¹Ù¿îµğµå Å¸ÀÔ - ¿ÀºêÁ§Æ® Å¸ÀÔ
-//		System.out.println(jin.getName());//¹Ù¿îµğµå - BTS Å¸ÀÔ
+//		System.out.println(jin.getName());//ì–¸ë°”ìš´ë””ë“œ ì¼ë•Œ ì‹¤í–‰ ë¶ˆê°€ //ì–¸ë°”ìš´ë””ë“œ íƒ€ì… - ì˜¤ë¸Œì íŠ¸ íƒ€ì…
+//		System.out.println(jin.getName());//ë°”ìš´ë””ë“œ - BTS íƒ€ì…
 //		System.out.println(jin.getNickName());
 //	}
 }
