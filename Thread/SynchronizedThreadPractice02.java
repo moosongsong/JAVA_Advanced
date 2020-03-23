@@ -1,4 +1,4 @@
-package ¾²·¹µå;
+package ì“°ë ˆë“œ;
 
 class KakaoBank{
 	private String account;
@@ -41,20 +41,19 @@ class Mommy extends Thread{
 		for (int i = 0; i < 10; i++) {
 			bank.deposit(1000);
 			System.out.println("Mommy : + 1000won");
-			try {
-				Thread.sleep(1000);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
 			synchronized (bank) {
-				bank.notify();
-			}
-			try {
-				synchronized (bank) {
-					bank.wait();
+				try {
+					Thread.sleep(1000);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
 				}
-			} catch (InterruptedException e) {
-				e.printStackTrace();
+				
+				try {
+					bank.notify();
+					bank.wait();
+				} catch (InterruptedException e1) {
+					e1.printStackTrace();
+				}
 			}
 		}
 	}
@@ -72,7 +71,7 @@ class Son extends Thread{
 		for (int i = 0; i < 10; i++) {
 			synchronized (bank) {
 				try {
-					bank.wait();//±â´Ù¸®±â
+					bank.wait();
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
@@ -93,7 +92,7 @@ class Son extends Thread{
 
 public class SynchronizedThreadPractice02 {
 	public static void main(String [] args) {
-		KakaoBank bank = new KakaoBank("¿ì¸®ÁýÅëÀå", 0);
+		KakaoBank bank = new KakaoBank("ìš°ë¦¬ì§‘í†µìž¥", 0);
 		Thread mom = new Mommy(bank);
 		Thread son = new Son(bank);
 		mom.start();
