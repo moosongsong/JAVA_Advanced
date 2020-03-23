@@ -1,19 +1,19 @@
-package ¾²·¹µå;
-//½ÌÅ©·Î³ªÀÌÁî : ÇÑ¹ø¿¡ Á¢±Ù¿¡ ³¡³¯ ¶§±îÁö ÇÑ °´Ã¼¸¸ Çã¿ë//µ¿±âÈ­
-//»óÈ£¹èÁ¦ : Å°°¡ ¾øÀ¸¸é Á¢±ÙÀ» Çã¿ëÇÏÁö ¾Ê´Â´Ù.
-//»ç¿ëÇÏ°í ÀÖ´Â °´Ã¼°¡ Å°¸¦ ¹İ³³ÇÒ¶§ ±îÁö ±â´Ù·Á¾ß ÇÑ´Ù. ÀÌ Å°°¡ ¹ÂÅØ½º
+package ì“°ë ˆë“œ;
+//ì‹±í¬ë¡œë‚˜ì´ì¦ˆ : í•œë²ˆì— ì ‘ê·¼ì— ëë‚  ë•Œê¹Œì§€ í•œ ê°ì²´ë§Œ í—ˆìš©//ë™ê¸°í™”
+//ìƒí˜¸ë°°ì œ : í‚¤ê°€ ì—†ìœ¼ë©´ ì ‘ê·¼ì„ í—ˆìš©í•˜ì§€ ì•ŠëŠ”ë‹¤.
+//ì‚¬ìš©í•˜ê³  ìˆëŠ” ê°ì²´ê°€ í‚¤ë¥¼ ë°˜ë‚©í• ë•Œ ê¹Œì§€ ê¸°ë‹¤ë ¤ì•¼ í•œë‹¤. ì´ í‚¤ê°€ ë®¤í…ìŠ¤
 
 class KakaoBank{
 	private String account;
-	private int balance;//critical section - ÀÓ°è¿µ¿ª -> °øÀ¯°´Ã¼¿¡ ´ëÇÑ ¿ì¼±¼øÀ§ ½Î¿òÀÌ ¹ß»ıÇÑ´Ù.
+	private int balance;//critical section - ì„ê³„ì˜ì—­ -> ê³µìœ ê°ì²´ì— ëŒ€í•œ ìš°ì„ ìˆœìœ„ ì‹¸ì›€ì´ ë°œìƒí•œë‹¤.
 	
-	private volatile boolean isReady;//È£ÃâµÇ´Â ÁöÁ¡¿¡¼­ ÃÖÀûÈ­ ÇÏÁö ¾Ê´Â´Ù.
+//	private volatile boolean isReady;//í˜¸ì¶œë˜ëŠ” ì§€ì ì—ì„œ ìµœì í™” í•˜ì§€ ì•ŠëŠ”ë‹¤.
 	
 	public KakaoBank(String account, int balance) {
 		super();
 		this.account = account;
 		this.balance = balance;
-		this.isReady = false;
+//		this.isReady = false;
 	}
 	public String getAccount() {
 		return account;
@@ -22,12 +22,12 @@ class KakaoBank{
 		return balance;
 	}
 	
-	public boolean isReady() {//µ·ÀÌ ÀÔ±İ µÇ¾ú´Ï?
-		return isReady;
-	}
-	public void setReady(boolean isReady) {
-		this.isReady = isReady;
-	}
+//	public boolean isReady() {//ëˆì´ ì…ê¸ˆ ë˜ì—ˆë‹ˆ?
+//		return isReady;
+//	}
+//	public void setReady(boolean isReady) {
+//		this.isReady = isReady;
+//	}
 	public void setAccount(String account) {
 		this.account = account;
 	}
@@ -58,7 +58,10 @@ class Mommy extends Thread{
 		}
 		System.out.println("Mommy : + 1000won");
 		bank.deposit(1000);
-		bank.setReady(true);
+		synchronized (bank) {
+			bank.notify();//ì•Œë ¤ì£¼ê¸°
+		}
+//		bank.setReady(true);
 	}
 }
 
@@ -70,18 +73,29 @@ class Son extends Thread{
 	}
 	
 	public void run() {
-		int i=0;
-		while(bank.isReady()==false) {//cpu »ç¿ë·®ÀÌ ±ŞÁõ.
-			i++;
-			try {
-				Thread.sleep(5);// ÀÌ¹æ¹ıÀ» ¾²°Ô µÇ¸é cpu »ç¿ë·®Àº ÁÙ¾îµéÁö¸¸ ½Ã°£Â÷°¡ ¹ß»ıÇÏ°Ô µÈ´Ù....
-			} catch (Exception e) {
-				
+//		int i=0;
+//		while(bank.isReady()==false) {//cpu ì‚¬ìš©ëŸ‰ì´ ê¸‰ì¦.
+//			i++;
+//			try {
+//				Thread.sleep(5);// ì´ë°©ë²•ì„ ì“°ê²Œ ë˜ë©´ cpu ì‚¬ìš©ëŸ‰ì€ ì¤„ì–´ë“¤ì§€ë§Œ ì‹œê°„ì°¨ê°€ ë°œìƒí•˜ê²Œ ëœë‹¤....
+//			} catch (Exception e) {
+//				
+//			}
+//		}
+		int money=1000;
+		if(bank.getBalance()<money) {
+			synchronized (bank) {
+				try {
+					bank.wait();//ê¸°ë‹¤ë¦¬ê¸°
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 		}
-		boolean money = bank.withdraw(1000);
-		if(money) {
-			System.out.println("Son : -1000won "+i );
+		boolean temp = bank.withdraw(1000);
+		if(temp) {
+			System.out.println("Son : -1000won ");
 		}
 		else {
 			System.out.println("fail");
@@ -91,12 +105,12 @@ class Son extends Thread{
 
 public class SynchronizedThreadPractice01 {
 	public static void main(String [] args) {
-		KakaoBank bank = new KakaoBank("¿ì¸®ÁıÅëÀå", 0);
+		KakaoBank bank = new KakaoBank("ìš°ë¦¬ì§‘í†µì¥", 0);
 		Thread mom = new Mommy(bank);
 		Thread son = new Son(bank);
 		
 		mom.start();
-		son.start();//À§ÀÇ °øÀ¯ °´Ã¼¿¡ ´ëÇÑ ¿ì¼±¼øÀ§ ½Î¿òÀÌ ¹ß»ıÇÑ´Ù.
+		son.start();//ìœ„ì˜ ê³µìœ  ê°ì²´ì— ëŒ€í•œ ìš°ì„ ìˆœìœ„ ì‹¸ì›€ì´ ë°œìƒí•œë‹¤.
 	}
 	
 }
