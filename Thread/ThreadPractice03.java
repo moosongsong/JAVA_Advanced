@@ -1,4 +1,4 @@
-package ¾²·¹µå;
+package ì“°ë ˆë“œ;
 
 class MyThread extends Thread{
 	protected int a;
@@ -16,12 +16,35 @@ class MyThread extends Thread{
 	}
 }
 
+class Bank{//Thread, Runnable ì„ ì‚¬ìš©í•˜ì§€ ì•Šê³  ë©€í‹°ì“°ë ˆë”©ì€ ì–´ë–»ê²Œ í• ê¹Œ???
+	int balance;
+}
+
+class MyBank extends Bank implements Runnable{//ìš”ë ‡ê²Œ í•˜ë©´ í•´ê²°í•  ìˆ˜ ìˆë‹¤.
+	
+	@Override
+	public void run() {
+		balance=0;
+		for (int i = 0; i < 10; i++) {
+			balance++;
+			try {
+				Thread.sleep(500);
+			}catch (InterruptedException e) {
+			}
+			System.out.println("balance, "+balance);
+		}
+	}
+	
+}
+//êµ¬í˜„í•˜ê¸° ì‹«ë‹¤ë©´
+//abstract class MyBank extends Bank implements Runnable{}
+
 public class ThreadPractice03 {
 
 	public static void main(String[] args) {
-		int num=100;
-		Thread t1 = new MyThread(num) {//³»ºÎ¿¡¼­ numÀ» ¹Ù²Û´Ù°í ÇØµµ ¿ÜºÎ¿¡¼­ »ç¿ëµÇÁö ¾Ê´Â´Ù.argument ÀÌ±â ¶§¹®
-			//numÀº ´Ü¼øÇÑ °ªÀÎ°Å¾ß.'½ÇÀÎ¼ö' ÀÌ ³»ºÎ¿¡¼­´Â final·Î Ãë±ŞµÈ´Ù. µû¶ó¼­ ³»ºÎ¿¡¼­ º¯°æ ºÒ°¡...
+		int num=100;//ìµëª…ì¤‘ì²©í´ë˜ìŠ¤.
+		Thread t1 = new MyThread(num) {//ë‚´ë¶€ì—ì„œ numì„ ë°”ê¾¼ë‹¤ê³  í•´ë„ ì™¸ë¶€ì—ì„œ ì‚¬ìš©ë˜ì§€ ì•ŠëŠ”ë‹¤.argument ì´ê¸° ë•Œë¬¸
+			//numì€ ë‹¨ìˆœí•œ ê°’ì¸ê±°ì•¼.'ì‹¤ì¸ìˆ˜' ì´ ë‚´ë¶€ì—ì„œëŠ” finalë¡œ ì·¨ê¸‰ëœë‹¤. ë”°ë¼ì„œ ë‚´ë¶€ì—ì„œ ë³€ê²½ ë¶ˆê°€...
 			public void run() {
 				for (int i = 0; i < 10; i++) {
 					a++;
@@ -34,5 +57,8 @@ public class ThreadPractice03 {
 			}
 		};
 		t1.start();	
+		
+		Thread t2 = new Thread(new MyBank());
+		t2.start();
 	}
 }
