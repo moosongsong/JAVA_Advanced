@@ -1,5 +1,3 @@
-package 병원제네릭구현;
-
 public abstract class Animal {
 	protected String name;
 
