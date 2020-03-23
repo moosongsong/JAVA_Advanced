@@ -1,4 +1,4 @@
-package ¾²·¹µå;
+package ì“°ë ˆë“œ;
 
 public class Thread_Interrupt_Practice01 {
 
@@ -6,12 +6,12 @@ public class Thread_Interrupt_Practice01 {
 		Thread t1 = new Thread() {
 			public void run() {
 				for (int i = 0; i < 100; i++) {
-					System.out.println(i+"¹ø ¹Ýº¹");
+					System.out.println(i+"ë²ˆ ë°˜ë³µ");
 					try {
-						Thread.sleep(500);//´ë±âÁßÀÎ »óÅÂ¿¡¼­ ÀÎÅÍ·´Æ® ¹ß»ý
+						Thread.sleep(500);//ëŒ€ê¸°ì¤‘ì¸ ìƒíƒœì—ì„œ ì¸í„°ëŸ½íŠ¸ ë°œìƒ
 					} catch (InterruptedException e) {
-						System.out.println("ÀÎÅÍ·´Æ® ¿¹¿Ü ¹ß»ý");
-						break;
+						System.out.println("ì¸í„°ëŸ½íŠ¸ ì˜ˆì™¸ ë°œìƒ");
+						break;//ì˜ˆì™¸ í„°ì¡Œë‹¤ê³  í•˜ê³  ê³„ì† ëŒ ìˆ˜ ìžˆìœ¼ë¯€ë¡œ ê¼­ break;
 					}
 				}
 				System.out.println(Thread.currentThread().getName());
