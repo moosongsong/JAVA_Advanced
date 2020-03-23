@@ -1,5 +1,3 @@
-package 병원제네릭구현;
-
 public class AnimalHospital<T> extends Hospital<T>{
 	private T[] rooms=null;
 	private  int count;
