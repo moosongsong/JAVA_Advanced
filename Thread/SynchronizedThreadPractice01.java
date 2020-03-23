@@ -60,6 +60,7 @@ class Mommy extends Thread{
 		bank.deposit(1000);
 		synchronized (bank) {
 			bank.notify();//알려주기
+//			bank.notifyAll();//블록 걸려 있는 아이들를 모두 깨운다.
 		}
 //		bank.setReady(true);
 	}
