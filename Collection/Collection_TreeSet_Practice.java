@@ -17,12 +17,12 @@ class Bee implements Comparable<Bee>{
 	public String toString() {
 		return "Bee [name=" + name + ", age=" + age + ", weight=" + weight + "]";
 	}
-	//ÀÌ¸§À¸·Î ºñ±³ÇÏ±â
+	//ì´ë¦„ìœ¼ë¡œ ë¹„êµí•˜ê¸°
 //	@Override
 //	public int compareTo(Bee o) {
 //		return this.name.compareTo(o.name);
 //	}
-	//³ªÀÌ·Î ºñ±³ÇÏ±â
+	//ë‚˜ì´ë¡œ ë¹„êµí•˜ê¸°
 	@Override
 	public int compareTo(Bee o) {
 		return -Integer.valueOf(this.age).compareTo(o.age);
@@ -59,6 +59,22 @@ public class Collection_TreeSet_Practice {
 		ta.add(new Bee("taetae",4,4));
 		for (Bee i : ta) {
 			System.out.println(i);
+		}
+		
+		System.out.println("iterator===");
+		Iterator<Bee> it = ta.descendingIterator();//ë‚´ë¦¼ì°¨ìˆœ->ì˜¤ë¦„ì°¨ìˆœ, ì˜¤ë¦„ì°¨ìˆœ->ë‚´ë¦¼ì°¨ìˆœ
+		while(it.hasNext()) {
+			System.out.println(it.next());
+		}
+		System.out.println("navigableset===");
+		NavigableSet <Bee> ns = ta.descendingSet();
+		for (Bee bee : ns) {
+			System.out.println(bee);
+		}
+		System.out.println("navigableset===");
+		NavigableSet <Bee> ns2 = ta.descendingSet();
+		for (Bee bee : ns2) {
+			System.out.println(bee);
 		}
 	}
 
