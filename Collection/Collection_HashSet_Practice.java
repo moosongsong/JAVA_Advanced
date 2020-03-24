@@ -72,6 +72,29 @@ public class Collection_HashSet_Practice {
 			Bear b = it.next();
 			System.out.println(b);
 		}
+		
+		
+		
+		System.out.println("===delete===");
+		
+		String name = "JIN";
+		Bear temp1 = null;
+		
+		it = hs.iterator();
+		while(it.hasNext()) {
+			Bear temp2 = it.next();
+			if(temp2.getName().equals(name)) {
+				temp1=temp2;
+				break;
+			}
+		}
+		hs.remove(temp1);
+
+		it = hs.iterator();
+		while(it.hasNext()) {
+			Bear b = it.next();
+			System.out.println(b);
+		}
 	}
 
 }
