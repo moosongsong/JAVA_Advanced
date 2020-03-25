@@ -1,5 +1,3 @@
-package 병원제네릭구현;
-
 public class Hospital_AppStart {
 
 	public static void main(String[] args) {
