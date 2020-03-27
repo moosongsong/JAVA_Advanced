@@ -1,5 +1,3 @@
-package socketReview;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.ServerSocket;
@@ -7,85 +5,92 @@ import java.net.Socket;
 import java.net.SocketException;
 
 public class Receiver {
-	
-	//¹Ş´Â ÂÊÀº Á¤»óÀûÀÎ ÆĞÅ¶ÀÎÁö È®ÀÎÇÒ ¼ö ÀÖ¾î¾ß ÇÔ.
-	
-	//¼­¹öÆ÷Æ®¸¦ ¸¸µé°í ±â´Ù¸®±â
+	//ì„œë²„í¬íŠ¸ë¥¼ ë§Œë“¤ê³  ê¸°ë‹¤ë¦¬ê¸°
 	public static void main(String []args) {
 		
 		ServerSocket serverSocket = null;
 		int portNum=0;
+		InputStream in = null;//ë°›ê¸°ë§Œ í• ê±°ë‹ˆê¹Œ InputStream ë§Œ í•„ìš”í•˜ë‹¤
 		
-		//¹Ş±â¸¸ ÇÒ°Å´Ï±î InputStream ¸¸ ÇÊ¿äÇÏ´Ù
-		InputStream in = null;
-		
+		///////////ì…ë ¥ í™•ì¸ ì¡ì—…//////////////////////////////////////////////////////////
 		if(args.length !=1) {
-			System.err.println("Àß¸øµÈ ¸í·É ÇàÀ§...");
-			System.err.println("»ç¿ë¹ı >> java Receiver [Æ÷Æ®¹øÈ£]");
-			System.exit(1);//ºñÁ¤»ó Á¾·á
+			System.err.println("ì˜ëª»ëœ ëª…ë ¹ í–‰ìœ„...");
+			System.err.println("ì‚¬ìš©ë²• >> java Receiver [í¬íŠ¸ë²ˆí˜¸]");
+			System.exit(1);//ë¹„ì •ìƒ ì¢…ë£Œ
 		}
 		
 		try {
-			portNum = Integer.parseInt(args[0]);
-			//Æ÷Æ®¹øÈ£ È®ÀÎÇÏ±â
+			portNum = Integer.parseInt(args[0]);//ì—¬ê¸°ì„œ ìˆ«ì ì˜¤ë¥˜ ë°œìƒí•¨
+			//í¬íŠ¸ë²ˆí˜¸ í™•ì¸í•˜ê¸°
 			if((portNum<1)||(portNum>65535)) {
 				System.out.println("Wrong Port Number arange...");
 				System.out.println("Port Number = 1~65535 can be used...");
 			}
 		} catch (NumberFormatException e) {
 			System.out.println("Wrong Port Number...");
-			System.exit(2);//ºñÁ¤»ó Á¾·á
+			System.exit(2);//ë¹„ì •ìƒ ì¢…ë£Œ
 		}
+		///////////////////////////////////////////////////////////////////////////////
 		
+		////////////////////////ì„œë²„ì¸¡ ì†Œì¼“ ì‘ì—…///////////////////////////////////////////
 		try {
-			//¼ÒÄÏ¸¸µé±â 
+			//ì†Œì¼“ë§Œë“¤ê¸° 
 			serverSocket = new ServerSocket(portNum);
 			System.out.println("Server is connected by using "+portNum+" port...");
 			
-			
+			//ì…ë ¥ ë©”ì¸ìŠ¤íŠ¸ë¦¼ ì¢…ë£Œì „ê¹Œì§€ ê³„ì† ë°›ê¸°(ë‹¤ì–‘í•œ í´ë¼ì´ì–¸íŠ¸ë“¤ì„)
 			while(true) {
+				//í´ë¼ì´ì–¸íŠ¸ ì†Œì¼“ ìŠ¹ì¸ ë°›ê¸°ìœ„í•œ ì¸ìŠ¤í„´ìŠ¤ ìƒì„±
 				Socket clientSocket =null;
 				try {
-					clientSocket = serverSocket.accept();
+					clientSocket = serverSocket.accept();//ìŠ¹ì¸
 					System.out.println(clientSocket.getInetAddress().getHostName()+" is connecting...");
-					in = clientSocket.getInputStream();
-					//¹ŞÀ» ¹öÆÛ¸¸µé±â
+					
+					in = clientSocket.getInputStream();//in:ë°›ëŠ” ìŠ¤íŠ¸ë¦¼, ëˆ„êµ¬í•œí…Œ ë°›ì•„? í´ë¼ì´ì–¸íŠ¸ ì…ë ¥ ìŠ¤íŠ¸ë¦¼ ì—°ê²°.
+					
+					//ë°›ì„ ë²„í¼ë§Œë“¤ê¸°
 					byte[]buffer = new byte [Common.BUFFER_SIZE];
 					
-					//¸¸¾à STX, ETX °¡ ¾øÀ¸¸é ÀÔ·ÂÀÌ Àß¸øµÇ¾ú´Ù°í ÇØ¾ßÇÑ´Ù.
-					//¸¸¾à sender ·ÎºÎÅÍ EOT°¡ ¼ö½ÅµÇ¸é Sender¿ÍÀÇ ¼ö½Å Á¾·á »õ·Î¿î Á¢¼ÓÀ» ´ë±âÇÑ´Ù.
+					//í•œ í´ë¼ì´ì–¸íŠ¸ì—ê²Œ ì…ë ¥ ê³„ì† ë°›ê¸°
 					while(true) {
 						try {
-							in.read(buffer);
-						} catch (SocketException e) {
+							in.read(buffer);//ë²„í¼ì— ì…ë ¥ ìŠ¤íŠ¸ë¦¼ì— ìˆëŠ” ê°’ ë°›ê¸°
+						} catch (SocketException e) {//í´ë¼ì´ì–¸íŠ¸ ì¸¡ì—ì„œ ê°•ì œ ì¢…ë£Œì‹œ ì˜ˆì™¸ì²˜ë¦¬. ì´í›„ ë‹¤ë¥¸ í´ë¼ì´ì–¸íŠ¸ ëŒ€ê¸°.
 							System.out.println(clientSocket.getInetAddress().getHostName()+" BYE...");
 							break;
 						}
 						
+						//ë°”ì´íŠ¸ ë²„í¼ ìŠ¤íŠ¸ë§ìœ¼ë¡œ ë°”ê¾¸ê¸°. ì‰½ê²Œ ë‹¤ë£° ëª©ì 
 						String strBuffer = new String(buffer);
 						
+						//EOTê°€ ì…ë ¥ìŠ¤íŠ¸ë¦¼ìœ¼ë¡œ ë“¤ì–´ì˜¨ê²½ìš°, ì—°ê²° ëŠê³ , ìƒˆë¡œìš´ í´ë¼ì´ì–¸íŠ¸ ëŒ€ê¸°.
 						if(Common.isEOT(strBuffer)) {
 							System.out.println(clientSocket.getInetAddress().getHostName()+" BYE...");
 							break;
 						}
 						
+						//STX, ETXê°€ ì…ë ¥ìŠ¤íŠ¸ë¦¼ì— ì—†ëŠ” ê²½ìš°, ë‹¤ì‹œ ì…ë ¥ë°›ê¸°.
 						if(Common.isValidate(strBuffer)) {
-							System.err.println("Àü¼Û¿À·ù¹ß»ı");
+							System.err.println("ì „ì†¡ì˜¤ë¥˜ë°œìƒ");
 							continue;
 						}
 						
-						StringBuffer temp = new StringBuffer(new String(strBuffer));
+						//////////////////////////////ë¬¸ìì—´ ìˆ˜ì •//////////////////////////////////////
 						
-						System.out.println("====ÀÔ·Â°ª====");
+						//ìŠ¤íŠ¸ë§ìœ¼ë¡œ ë‘ì—ˆë˜ ë²„í¼, ë²„í¼í˜•íƒœë¡œ ë°”ê¾¸ì–´ ë¬¸ìì—´ ìˆ˜ì •í•˜ê¸°.
+						StringBuffer temp = new StringBuffer(strBuffer);
+						
+						//ì…ë ¥ê°’ ì¶œë ¥. ì•ì˜ ë¬¸ìë“¤ì„ ì§€ì›€ìœ¼ë¡œì„œ ì¶œë ¥ ê°„ëµí™”.
+						System.out.println("====ì…ë ¥ê°’====");
 						temp.delete(0, 1);
 						
-						System.out.println("Á¦Ç°ÄÚµå : "+temp.substring(0,Common.CODE));
+						System.out.println("ì œí’ˆì½”ë“œ : "+temp.substring(0,Common.CODE));
 						temp.delete(0, Common.CODE);
 						
-						System.out.println("Á¦Ç°¼ö·® : "+temp.substring(0, Common.AMOUNT));
+						System.out.println("ì œí’ˆìˆ˜ëŸ‰ : "+temp.substring(0, Common.AMOUNT));
 						temp.delete(0, Common.AMOUNT);
 						
-						System.out.println("Á¦Ç°°¡°İ : "+temp.substring(0, Common.PRICE));
+						System.out.println("ì œí’ˆê°€ê²© : "+temp.substring(0, Common.PRICE));
 						temp.delete(0, Common.PRICE);
 					}
 				} catch (Exception e) {
@@ -97,7 +102,7 @@ public class Receiver {
 			e.printStackTrace();
 		} finally {
 			try {
-				//Å¬¶óÀÌ¾ğÆ® ¼ÒÄÏÀº Å¬¶óÀÌ¾ğÆ® Ãø¿¡¼­ ´İ´Â´Ù.
+				//í´ë¼ì´ì–¸íŠ¸ ì†Œì¼“ì€ í´ë¼ì´ì–¸íŠ¸ ì¸¡ì—ì„œ ë‹«ëŠ”ë‹¤.
 				serverSocket.close();
 			} catch (IOException e) {
 				System.out.println("Closed Failed");
