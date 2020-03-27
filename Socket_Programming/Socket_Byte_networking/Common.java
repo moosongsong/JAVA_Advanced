@@ -1,5 +1,3 @@
-package socketReview;
-
 public class Common {
 	public static final char STX = '\u0002';
 	public static final char ETX = '\u0003';
